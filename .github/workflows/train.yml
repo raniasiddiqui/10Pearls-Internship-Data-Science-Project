@@ -25,4 +25,4 @@ jobs:
 
       - name: Run training
         run: |
-          python app.py  # Add CLI args if needed to isolate training
+          python airquality.py  # Replace app.py with airquality.py

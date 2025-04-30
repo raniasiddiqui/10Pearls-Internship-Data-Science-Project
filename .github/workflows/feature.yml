@@ -25,4 +25,4 @@ jobs:
 
       - name: Run feature extraction
         run: |
-          python app.py  # Add CLI args if needed to isolate feature part
+          python airquality.py  
