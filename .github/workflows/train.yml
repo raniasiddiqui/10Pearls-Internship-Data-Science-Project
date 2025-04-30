@@ -1,28 +1,69 @@
-name: Run Training Daily
+# name: Run Training Daily
+
+# on:
+#   schedule:
+#     - cron: '0 1 * * *'  # Every day at 1 AM UTC
+#   workflow_dispatch:
+
+# jobs:
+#   training-job:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repo
+#         uses: actions/checkout@v3
+
+#       - name: Set up Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.10'
+
+#       - name: Install dependencies
+#         run: |
+#           python -m pip install --upgrade pip
+#           pip install -r requirements.txt
+
+#       - name: Run training
+#         run: |
+#           python airquality.py  # Replace app.py with airquality.py
+# .github/workflows/train.yaml
+name: Daily Model Training
 
 on:
   schedule:
-    - cron: '0 1 * * *'  # Every day at 1 AM UTC
+    - cron: '0 0 * * *'  # Runs daily at midnight
   workflow_dispatch:
 
 jobs:
-  training-job:
+  run-training:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install hopsworks pandas numpy scikit-learn joblib
 
-      - name: Run training
-        run: |
-          python airquality.py  # Replace app.py with airquality.py
+    - name: Train and store model
+      run: |
+        python -c "
+from fetch_data import fetch_openmeteo_data
+from compute_targets import compute_features_targets
+from train_features import train_evaluate_models
+from store_features import store_model_in_registry
+import hopsworks
+
+df = fetch_openmeteo_data()
+X, y, _ = compute_features_targets(df)
+results = train_evaluate_models(X, y)
+project = hopsworks.login(api_key_value='7DjzBJJSuZ0kQOVZ.FucwuhwkAaImOt3IqR6GJv6BOL5q6LzJEhWWNsvITAD0s7uVVeWnh5XINaotS0AS')
+store_model_in_registry(results, project)
+"

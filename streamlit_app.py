@@ -12,16 +12,12 @@ import seaborn as sns
 from io import BytesIO
 import hopsworks
 
-# Import the necessary functions from your original code
-from airquality import (
-    fetch_openmeteo_data,
-    compute_features_targets,
-    train_evaluate_models,
-    store_in_feature_store,
-    store_model_in_registry,
-    predict_future,
-    compute_pm25_aqi
-)
+
+from fetch_data import fetch_openmeteo_data
+from compute_targets import compute_pm25_aqi, add_lag_features, compute_features_targets
+from train_features import train_evaluate_models
+from store_features import store_in_feature_store, store_model_in_registry
+from predict_futures import predict_future
 
 # Set page configuration
 st.set_page_config(
@@ -642,3 +638,4 @@ else:
 # Footer
 st.markdown("<div class='footer'>Developed with ❤️ for cleaner air | Last updated: {}</div>".format(
     datetime.now().strftime("%Y-%m-%d %H:%M")), unsafe_allow_html=True)
+
