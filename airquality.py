@@ -12,7 +12,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import joblib
 import confluent_kafka
 
-def fetch_openmeteo_data(start_date="2015-01-01", end_date=None):
+def fetch_openmeteo_data(start_date="2020-01-01", end_date=None):
     if end_date is None:
         end_date = datetime.utcnow().strftime("%Y-%m-%d")
 
@@ -175,40 +175,7 @@ def train_evaluate_models(X, y):
         'model': et
     }
 
-    # # Gradient Boosting
-    # gb = GradientBoostingRegressor(n_estimators=150, random_state=42)
-    # gb.fit(X_train, y_train)
-    # gb_pred = gb.predict(X_test)
-    # results['GradientBoosting'] = {
-    #     'RMSE': np.sqrt(mean_squared_error(y_test, gb_pred)),
-    #     'MAE': mean_absolute_error(y_test, gb_pred),
-    #     'R2': r2_score(y_test, gb_pred),
-    #     'model': gb
-    # }
-
-
-    # # SVR
-    # svr = SVR(C=1.0, epsilon=0.2)
-    # svr.fit(X_train_scaled, y_train)
-    # svr_pred = svr.predict(X_test_scaled)
-    # results['SVR'] = {
-    #     'RMSE': np.sqrt(mean_squared_error(y_test, svr_pred)),
-    #     'MAE': mean_absolute_error(y_test, svr_pred),
-    #     'R2': r2_score(y_test, svr_pred),
-    #     'model': svr
-    # }
-
-    # # MLP
-    # mlp = MLPRegressor(hidden_layer_sizes=(64, 32), max_iter=300, random_state=42)
-    # mlp.fit(X_train_scaled, y_train)
-    # mlp_pred = mlp.predict(X_test_scaled)
-    # results['MLP'] = {
-    #     'RMSE': np.sqrt(mean_squared_error(y_test, mlp_pred)),
-    #     'MAE': mean_absolute_error(y_test, mlp_pred),
-    #     'R2': r2_score(y_test, mlp_pred),
-    #     'model': mlp
-    # }
-
+   
     return results
 
 def store_in_feature_store(features_df, target_list):
@@ -254,7 +221,7 @@ def predict_future(best_model, latest_features_df):
 
 def main():
     print("Fetching data...")
-    df = fetch_openmeteo_data(start_date="2015-01-01")
+    df = fetch_openmeteo_data(start_date="2020-01-01")
 
     print("Raw Open-Meteo data:")
     print(df.head())  # show first few rows
@@ -297,3 +264,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
