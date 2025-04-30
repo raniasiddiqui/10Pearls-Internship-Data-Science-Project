@@ -56,7 +56,7 @@ jobs:
         env:
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
         run: |
-          python fetchdata.py
+          python fetch_data.py
           python compute_targets.py
           python train_features.py
           python store_features.py
