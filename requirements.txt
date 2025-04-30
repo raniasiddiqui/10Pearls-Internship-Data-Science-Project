@@ -6,5 +6,6 @@ openmeteo-requests
 retry-requests
 joblib
 requests-cache
-hopsworks
+hopsworks[python]     # Enables Apache Arrow features
 confluent-kafka
+pyarrow               # <- ADD THIS LINE
