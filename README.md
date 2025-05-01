@@ -42,11 +42,10 @@ A web app loads the trained model, generates predictions, and presents insights 
 
 - Machine Learning: RandomForest, Ridge, Extra Trees
 
-- Automation: GitHub Actions
+- Automation: CI/CD using github actions
 
 - Web App: Built using Streamlit
 
-- Deployment: CI/CD
 
 ## How to Run:
 In order to run the app:
