@@ -6,13 +6,13 @@ AQI Predictor is an end-to-end, serverless system that forecasts the Air Quality
 ## 🔥 Features:
 - Real-time Data Fetching: Collects raw weather and pollution data from API.
 
-- Feature Engineering: Computes time-based and derived features (e.g., AQI change rate).
+- Feature Engineering: Computes time-based and derived features.
 
-- ML Model Training: Trains and evaluates models using Scikit-learn and deep learning frameworks like TensorFlow/PyTorch.
+- ML Model Training: Trains and evaluates using different machine learning models like RandomForest, Ridge and ExtraTrees.
 
-- Automated Pipelines: Uses CI/CD tools (Apache Airflow, GitHub Actions) to automate data collection and model training.
+- Automated Pipelines: Uses CI/CD tools (GitHub Actions) to automate data collection and model training.
 
-- Interactive Dashboard: Displays real-time and forecasted AQI using Streamlit and a backend built with Flask/FastAPI.
+- Interactive Dashboard: Displays real-time and forecasted AQI using Streamlit.
 
 
 ## 📌 Project Workflow
@@ -20,7 +20,7 @@ AQI Predictor is an end-to-end, serverless system that forecasts the Air Quality
 
 - Fetches real-time weather & pollutant data.
 
-- Computes relevant features and stores them in a Feature Store (Hopsworks/Vertex AI).
+- Computes relevant features and stores them in a Feature Store (Hopsworks).
 
 - Backfills historical data for training.
 
@@ -40,10 +40,15 @@ A web app loads the trained model, generates predictions, and presents insights 
 ## 🛠 Tech Stack
 - Data Processing: Python, Pandas, NumPy
 
-- Machine Learning: Scikit-learn, TensorFlow, PyTorch
+- Machine Learning: RandomForest, Ridge, Extra Trees
 
-- Automation: Apache Airflow, GitHub Actions
+- Automation: GitHub Actions
 
-- Web App: Flask, FastAPI, Streamlit, Gradio
+- Web App: Built using Streamlit
 
-- Deployment: Docker, CI/CD
+- Deployment: CI/CD
+
+## How to Run:
+In order to run the app:
+Just go on the terminal and type: streamlit run streamlit_app.py
+In order to check if CI/CD is working, go on the repository, go on actions and you can see the feature script running successfully hourly and the training script running successfully daily.
